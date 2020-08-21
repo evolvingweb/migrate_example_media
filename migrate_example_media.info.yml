@@ -1,0 +1,10 @@
+name: Migrate Example Media
+type: module
+description: Migration scripts examples for Media migration.
+dependencies:
+  - migrate_plus
+  - migrate_tools
+  - migrate_drupal
+  - node
+  - taxonomy
+core_version_requirement: ^8 || ^9
