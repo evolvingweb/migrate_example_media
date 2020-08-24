@@ -1,0 +1,36 @@
+id: media_image
+label: "Media - Image"
+migration_group: media
+migration_tags:
+  - Drupal 7
+  - media
+source:
+  plugin: d7_file
+  scheme: public
+process:
+  temp1:
+    -
+      plugin: skip_on_value
+      method: row
+      not_equals: true
+      value:
+        - image/png
+        - image/jpg
+        - image/jpeg
+      source: filemime
+  field_media_image/target_id:
+    -
+      plugin: migration_lookup
+      migration: file
+      source: fid
+  status: status
+  # Drupal 7 didn't keep track of the file's creation or update time -- all it
+  # had was the vague "timestamp" column. So we'll use it for both.
+  created: timestamp
+  changed: timestamp
+destination:
+  plugin: entity:media
+  default_bundle: image
+migration_dependencies:
+  required:
+    - file
