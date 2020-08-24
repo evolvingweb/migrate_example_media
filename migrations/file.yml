@@ -8,7 +8,6 @@ source:
   plugin: d7_file
   scheme: public
   constants:
-    source_base_path: 'http://nginx'
     migrate_files_path: 'sites/default/files/migratefiles'
 process:
   filename: filename
@@ -23,7 +22,6 @@ process:
       plugin: concat
       delimiter: /
       source:
-        - constants/source_base_path
         - constants/migrate_files_path
         - '@replaced_filepath'
     -
