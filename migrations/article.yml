@@ -1,0 +1,40 @@
+id: article
+label: Article posts
+migration_tags:
+  - node
+  - Drupal 7
+migration_group: media
+source:
+  plugin: d7_node
+  node_type: article
+destination:
+  plugin: 'entity:node'
+process:
+  type:
+    plugin: default_value
+    default_value: article
+  title: title
+  status: status
+  changed: changed
+  promote: promote
+  sticky: sticky
+  revision_log: log
+  body:
+    plugin: sub_process
+    source: body
+    process:
+      value: value
+      format:
+        plugin: default_value
+        default_value: full_html
+  field_image:
+      plugin: sub_process
+      source: field_image
+      process:
+        target_id:
+          plugin: migration_lookup
+          source: fid
+          migration: media_image
+migration_dependencies:
+  required:
+    - media_image
