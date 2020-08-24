@@ -1,0 +1,42 @@
+id: file
+label: Public files
+migration_group: media
+migration_tags:
+  - Drupal 7
+  - file
+source:
+  plugin: d7_file
+  scheme: public
+  constants:
+    source_base_path: 'http://nginx'
+    migrate_files_path: 'sites/default/files/migratefiles'
+process:
+  filename: filename
+  replaced_filepath:
+    -
+      plugin: str_replace
+      source: filepath
+      search: "sites/default/files/"
+      replace: ""
+  source_full_path:
+    -
+      plugin: concat
+      delimiter: /
+      source:
+        - constants/source_base_path
+        - constants/migrate_files_path
+        - '@replaced_filepath'
+    -
+      plugin: urlencode
+  uri:
+    plugin: file_copy
+    source:
+      - '@source_full_path'
+      - uri
+  filemime: filemime
+  status: status
+  created: timestamp
+  changed: timestamp
+  uid: uid
+destination:
+  plugin: entity:file
