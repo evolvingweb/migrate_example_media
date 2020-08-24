@@ -6,5 +6,5 @@ dependencies:
   - migrate_tools
   - migrate_drupal
   - node
-  - taxonomy
+  - media
 core_version_requirement: ^8 || ^9
